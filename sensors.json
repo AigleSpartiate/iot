@@ -1,0 +1,373 @@
+{
+  "project": "temp",
+  "created": "2025-11-28T11:59:51.739683",
+  "last_updated": "2025-11-28T12:12:54.207412",
+  "rooms": [
+    {
+      "room_id": 1,
+      "name": "Room_1",
+      "measurements": {
+        "temperature": [
+          {
+            "timestamp": "2025-11-28T12:00:13.706957",
+            "value": 23.9,
+            "unit": "celsius"
+          },
+          {
+            "timestamp": "2025-11-28T12:00:53.725052",
+            "value": 23.9,
+            "unit": "celsius"
+          },
+          {
+            "timestamp": "2025-11-28T12:01:53.765531",
+            "value": 23.9,
+            "unit": "celsius"
+          },
+          {
+            "timestamp": "2025-11-28T12:02:53.806144",
+            "value": 23.9,
+            "unit": "celsius"
+          },
+          {
+            "timestamp": "2025-11-28T12:03:53.846727",
+            "value": 23.8,
+            "unit": "celsius"
+          },
+          {
+            "timestamp": "2025-11-28T12:04:53.887228",
+            "value": 23.8,
+            "unit": "celsius"
+          },
+          {
+            "timestamp": "2025-11-28T12:05:53.927705",
+            "value": 23.7,
+            "unit": "celsius"
+          },
+          {
+            "timestamp": "2025-11-28T12:06:53.968583",
+            "value": 23.7,
+            "unit": "celsius"
+          },
+          {
+            "timestamp": "2025-11-28T12:07:54.004667",
+            "value": 23.8,
+            "unit": "celsius"
+          },
+          {
+            "timestamp": "2025-11-28T12:08:54.049167",
+            "value": 23.8,
+            "unit": "celsius"
+          },
+          {
+            "timestamp": "2025-11-28T12:09:54.089584",
+            "value": 23.8,
+            "unit": "celsius"
+          },
+          {
+            "timestamp": "2025-11-28T12:10:54.125980",
+            "value": 23.9,
+            "unit": "celsius"
+          },
+          {
+            "timestamp": "2025-11-28T12:11:54.166537",
+            "value": 23.9,
+            "unit": "celsius"
+          },
+          {
+            "timestamp": "2025-11-28T12:12:54.207395",
+            "value": 23.9,
+            "unit": "celsius"
+          }
+        ],
+        "humidity": [
+          {
+            "timestamp": "2025-11-28T12:00:13.706957",
+            "value": 32.4,
+            "unit": "percent"
+          },
+          {
+            "timestamp": "2025-11-28T12:00:53.725052",
+            "value": 33.1,
+            "unit": "percent"
+          },
+          {
+            "timestamp": "2025-11-28T12:01:53.765531",
+            "value": 32.9,
+            "unit": "percent"
+          },
+          {
+            "timestamp": "2025-11-28T12:02:53.806144",
+            "value": 32.6,
+            "unit": "percent"
+          },
+          {
+            "timestamp": "2025-11-28T12:03:53.846727",
+            "value": 32.5,
+            "unit": "percent"
+          },
+          {
+            "timestamp": "2025-11-28T12:04:53.887228",
+            "value": 32.5,
+            "unit": "percent"
+          },
+          {
+            "timestamp": "2025-11-28T12:05:53.927705",
+            "value": 32.7,
+            "unit": "percent"
+          },
+          {
+            "timestamp": "2025-11-28T12:06:53.968583",
+            "value": 32.7,
+            "unit": "percent"
+          },
+          {
+            "timestamp": "2025-11-28T12:07:54.004667",
+            "value": 32.8,
+            "unit": "percent"
+          },
+          {
+            "timestamp": "2025-11-28T12:08:54.049167",
+            "value": 32.7,
+            "unit": "percent"
+          },
+          {
+            "timestamp": "2025-11-28T12:09:54.089584",
+            "value": 32.9,
+            "unit": "percent"
+          },
+          {
+            "timestamp": "2025-11-28T12:10:54.125980",
+            "value": 32.6,
+            "unit": "percent"
+          },
+          {
+            "timestamp": "2025-11-28T12:11:54.166537",
+            "value": 32.7,
+            "unit": "percent"
+          },
+          {
+            "timestamp": "2025-11-28T12:12:54.207395",
+            "value": 32.7,
+            "unit": "percent"
+          }
+        ],
+        "light": [
+          {
+            "timestamp": "2025-11-28T12:00:13.706957",
+            "raw": 482,
+            "percent": 47
+          },
+          {
+            "timestamp": "2025-11-28T12:00:53.725052",
+            "raw": 474,
+            "percent": 46
+          },
+          {
+            "timestamp": "2025-11-28T12:01:53.765531",
+            "raw": 486,
+            "percent": 47
+          },
+          {
+            "timestamp": "2025-11-28T12:02:53.806144",
+            "raw": 492,
+            "percent": 48
+          },
+          {
+            "timestamp": "2025-11-28T12:03:53.846727",
+            "raw": 490,
+            "percent": 47
+          },
+          {
+            "timestamp": "2025-11-28T12:04:53.887228",
+            "raw": 484,
+            "percent": 47
+          },
+          {
+            "timestamp": "2025-11-28T12:05:53.927705",
+            "raw": 473,
+            "percent": 46
+          },
+          {
+            "timestamp": "2025-11-28T12:06:53.968583",
+            "raw": 487,
+            "percent": 47
+          },
+          {
+            "timestamp": "2025-11-28T12:07:54.004667",
+            "raw": 485,
+            "percent": 47
+          },
+          {
+            "timestamp": "2025-11-28T12:08:54.049167",
+            "raw": 495,
+            "percent": 48
+          },
+          {
+            "timestamp": "2025-11-28T12:09:54.089584",
+            "raw": 472,
+            "percent": 46
+          },
+          {
+            "timestamp": "2025-11-28T12:10:54.125980",
+            "raw": 483,
+            "percent": 47
+          },
+          {
+            "timestamp": "2025-11-28T12:11:54.166537",
+            "raw": 482,
+            "percent": 47
+          },
+          {
+            "timestamp": "2025-11-28T12:12:54.207395",
+            "raw": 482,
+            "percent": 47
+          }
+        ],
+        "sound": [
+          {
+            "timestamp": "2025-11-28T12:00:13.706957",
+            "raw": 128,
+            "percent": 12
+          },
+          {
+            "timestamp": "2025-11-28T12:00:53.725052",
+            "raw": 85,
+            "percent": 8
+          },
+          {
+            "timestamp": "2025-11-28T12:01:53.765531",
+            "raw": 81,
+            "percent": 7
+          },
+          {
+            "timestamp": "2025-11-28T12:02:53.806144",
+            "raw": 120,
+            "percent": 11
+          },
+          {
+            "timestamp": "2025-11-28T12:03:53.846727",
+            "raw": 86,
+            "percent": 8
+          },
+          {
+            "timestamp": "2025-11-28T12:04:53.887228",
+            "raw": 125,
+            "percent": 12
+          },
+          {
+            "timestamp": "2025-11-28T12:05:53.927705",
+            "raw": 126,
+            "percent": 12
+          },
+          {
+            "timestamp": "2025-11-28T12:06:53.968583",
+            "raw": 76,
+            "percent": 7
+          },
+          {
+            "timestamp": "2025-11-28T12:07:54.004667",
+            "raw": 83,
+            "percent": 8
+          },
+          {
+            "timestamp": "2025-11-28T12:08:54.049167",
+            "raw": 105,
+            "percent": 10
+          },
+          {
+            "timestamp": "2025-11-28T12:09:54.089584",
+            "raw": 112,
+            "percent": 10
+          },
+          {
+            "timestamp": "2025-11-28T12:10:54.125980",
+            "raw": 80,
+            "percent": 7
+          },
+          {
+            "timestamp": "2025-11-28T12:11:54.166537",
+            "raw": 106,
+            "percent": 10
+          },
+          {
+            "timestamp": "2025-11-28T12:12:54.207395",
+            "raw": 75,
+            "percent": 7
+          }
+        ],
+        "air_quality": [
+          {
+            "timestamp": "2025-11-28T12:00:13.706957",
+            "raw": 24,
+            "level": "excellent"
+          },
+          {
+            "timestamp": "2025-11-28T12:00:53.725052",
+            "raw": 25,
+            "level": "excellent"
+          },
+          {
+            "timestamp": "2025-11-28T12:01:53.765531",
+            "raw": 23,
+            "level": "excellent"
+          },
+          {
+            "timestamp": "2025-11-28T12:02:53.806144",
+            "raw": 23,
+            "level": "excellent"
+          },
+          {
+            "timestamp": "2025-11-28T12:03:53.846727",
+            "raw": 23,
+            "level": "excellent"
+          },
+          {
+            "timestamp": "2025-11-28T12:04:53.887228",
+            "raw": 22,
+            "level": "excellent"
+          },
+          {
+            "timestamp": "2025-11-28T12:05:53.927705",
+            "raw": 25,
+            "level": "excellent"
+          },
+          {
+            "timestamp": "2025-11-28T12:06:53.968583",
+            "raw": 23,
+            "level": "excellent"
+          },
+          {
+            "timestamp": "2025-11-28T12:07:54.004667",
+            "raw": 21,
+            "level": "excellent"
+          },
+          {
+            "timestamp": "2025-11-28T12:08:54.049167",
+            "raw": 24,
+            "level": "excellent"
+          },
+          {
+            "timestamp": "2025-11-28T12:09:54.089584",
+            "raw": 25,
+            "level": "excellent"
+          },
+          {
+            "timestamp": "2025-11-28T12:10:54.125980",
+            "raw": 24,
+            "level": "excellent"
+          },
+          {
+            "timestamp": "2025-11-28T12:11:54.166537",
+            "raw": 22,
+            "level": "excellent"
+          },
+          {
+            "timestamp": "2025-11-28T12:12:54.207395",
+            "raw": 23,
+            "level": "excellent"
+          }
+        ]
+      }
+    }
+  ]
+}
