@@ -3,20 +3,20 @@
 #include <PubSubClient.h>
 #include <DHT.h>
 
-// ====== DHT CONFIG ======
+// DHT CONFIG
 #define LIGHT_SENSOR_PIN A1
 #define SOUND_SENSOR_PIN A2
 #define AIR_QUALITY_PIN A3
-#define DHT_PIN 8       // <-- use the digital pin your Grove sensor is on
+#define DHT_PIN 8
 #define DHT_TYPE DHT11  // Grove basic T&H = DHT11;
 DHT dht(DHT_PIN, DHT_TYPE);
 
-// ====== NETWORK CONFIG ======
+// NETWORK CONFIG
 byte mac[] = { 0xA8, 0x61, 0x0A, 0xAF, 0x15, 0x6C };
 IPAddress ip(192, 168, 10, 2);           // Arduino static IP
 IPAddress mqtt_server(192, 168, 10, 1);  // Raspberry Pi static IP
 
-// ====== ROOM INFO ======
+// ROOM INFO
 #define ROOM_ID 1
 #define ROOM_NAME "Room 1"
 
@@ -27,7 +27,7 @@ const char* mqtt_topic = "test/room1/temperature";
 // measurement counter
 unsigned long measurementCount = 0;
 unsigned long lastSend = 0;
-const unsigned long SEND_INTERVAL = 5000;  // every 5 seconds
+const unsigned long SEND_INTERVAL = 60000;  // every minute
 
 void reconnectMQTT() {
   while (!client.connected()) {
@@ -37,7 +37,7 @@ void reconnectMQTT() {
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
-      Serial.println(" try again in 5 seconds");
+      Serial.println("try again in 5 seconds");
       delay(5000);
     }
   }
