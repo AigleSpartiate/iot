@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Room Selection DSS</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    :root {
+      --primary: #2563eb;
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --muted: #64748b;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Inter, system-ui, -apple-system, Arial, sans-serif;
+      background: linear-gradient(180deg, #eef2ff, var(--bg));
+      padding: 32px;
+      color: #0f172a;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 24px;
+    }
+
+    h3 {
+      margin-bottom: 12px;
+    }
+
+    .card {
+      background: var(--card);
+      padding: 22px;
+      border-radius: 16px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    input {
+      padding: 10px 12px;
+      width: 160px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      margin-right: 10px;
+    }
+
+    button {
+      padding: 10px 22px;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .score {
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    .good {
+      color: #16a34a;
+    }
+
+    .warn {
+      color: #f59e0b;
+    }
+
+    .bad {
+      color: #dc2626;
+    }
+
+    .charts {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    canvas {
+      height: 320px !important;
+    }
+
+    .fac-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+    }
+
+    .fac {
+      padding: 18px;
+      background: #f8fafc;
+      border-radius: 14px;
+      text-align: center;
+      font-weight: 500;
+      box-shadow: inset 0 0 0 1px #e5e7eb;
+    }
+
+    select {
+      padding: 10px 12px;
+      width: 180px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      margin-right: 10px;
+      background: white;
+      font-family: inherit;
+    }
+
+    .fac b {
+      display: block;
+      font-size: 22px;
+      margin-top: 6px;
+      color: var(--primary);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th {
+      text-align: left;
+      color: var(--muted);
+      font-weight: 600;
+      padding-bottom: 10px;
+    }
+
+    td {
+      padding: 12px 0;
+      border-bottom: 1px solid #e5e7eb;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>🏢 Room Selection DSS Dashboard</h1>
+
+  <div class="card">
+    <select id="roomId" onchange="loadAll()">
+      <option value="" disabled selected>Select a room</option>
+      <option value="1">Room 1</option>
+      <option value="2">Room 2</option>
+      <option value="3">Room 3</option>
+      <option value="4">Room 4</option>
+    </select>
+  </div>
+
+  <div class="card">
+    <h3>Filter by Time</h3>
+    <input type="datetime-local" id="startTime">
+    <input type="datetime-local" id="endTime">
+    <button onclick="applyTimeFilter()">Apply Filter</button>
+  </div>
+
+  <div class="card">
+    <h3>Overall Room Score</h3>
+    <div id="score" class="score">--</div>
+  </div>
+
+  <div class="charts">
+    <div class="card"><canvas id="tempChart"></canvas></div>
+    <div class="card"><canvas id="airChart"></canvas></div>
+    <div class="card"><canvas id="soundChart"></canvas></div>
+    <div class="card"><canvas id="humChart"></canvas></div>
+  </div>
+
+  <div class="card">
+    <h3>Facilities</h3>
+    <div class="fac-grid" id="facilities"></div>
+  </div>
+
+  <div class="card">
+    <h3>Calendar Timeline</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Organizer</th>
+          <th>Start</th>
+          <th>End</th>
+        </tr>
+      </thead>
+      <tbody id="calendar"></tbody>
+    </table>
+  </div>
+
+  <script>
+    let allData = []; // store all measurements for filtering
+    let allCalendar = []; // store all calendar events for filtering
+
+    async function loadAll(start = null, end = null) {
+      const room = document.getElementById('roomId').value;
+      if (!room) return;
+
+
+      let mUrl = `/api/measurements/${room}`;
+      if (start && end) {
+        mUrl += `?start_time=${encodeURIComponent(start)}&end_time=${encodeURIComponent(end)}`;
+      }
+
+      const m = await fetch(mUrl).then(r => r.json());
+
+
+
+      const f = await fetch(`/api/facilities/${room}`).then(r => r.json());
+      const c = await fetch(`/api/calendar/${room}`).then(r => r.json());
+
+      allData = Array.isArray(m) ? m : [m];
+      allCalendar = Array.isArray(c) ? c : [c];
+
+      let filteredData = allData;
+      let filteredCalendar = allCalendar;
+
+      if (start && end) {
+        const startTs = new Date(start).getTime();
+        const endTs = new Date(end).getTime();
+
+        filteredData = allData.filter(d => {
+          const t = new Date(d.ts).getTime();
+          return t >= startTs && t <= endTs;
+        });
+
+        filteredCalendar = allCalendar.filter(e => {
+          const s = new Date(e.start_time).getTime();
+          const en = new Date(e.end_time).getTime();
+          return s <= endTs && en >= startTs;
+        });
+      }
+
+      drawCharts(filteredData);
+      drawFacilities(f);
+      drawCalendar(filteredCalendar);
+      calculateScore(filteredData);
+    }
+
+    function applyTimeFilter() {
+      const start = document.getElementById('startTime').value;
+      const end = document.getElementById('endTime').value;
+
+      if (!start || !end) {
+        alert("Please select both start and end times.");
+        return;
+      }
+
+      loadAll(start, end);
+    }
+
+    function calculateScore(data) {
+      if (!data.length) {
+        document.getElementById("score").innerHTML = `<span class="bad">-- / 100</span>`;
+        return;
+      }
+
+      const d = data[data.length - 1];
+
+      let score = 100;
+      score -= Math.abs(d.temperature - 21) * 3;
+      score -= d.sound / 100;
+      score -= d.air_quality / 10;
+
+      score = Math.max(0, Math.round(score));
+      const cls = score > 75 ? 'good' : score > 45 ? 'warn' : 'bad';
+
+      document.getElementById("score").innerHTML =
+        `<span class="${cls}">${score} / 100</span>`;
+    }
+
+    function drawFacilities(f) {
+      facilities.innerHTML = `
+    <div class="fac">Seats<b>${f.seat_count}</b></div>
+    <div class="fac">Projector<b>${f.has_projector ? 'Yes' : 'No'}</b></div>
+    <div class="fac">PC<b>${f.has_pc ? 'Yes' : 'No'}</b></div>
+    <div class="fac">Whiteboard<b>${f.has_whiteboard ? 'Yes' : 'No'}</b></div>
+  `;
+    }
+
+    function drawCalendar(c) {
+      calendar.innerHTML = "";
+      c.forEach(e => {
+        calendar.innerHTML += `
+      <tr>
+        <td>${e.event_name}</td>
+        <td>${e.organizer}</td>
+        <td>${e.start_time}</td>
+        <td>${e.end_time}</td>
+      </tr>`;
+      });
+    }
+
+    function drawCharts(data) {
+      const labels = data.map(d => d.ts);
+
+      makeChart("tempChart", "Temperature (°C)", labels, data.map(d => d.temperature), 0, 30);
+      makeChart("airChart", "Air Quality (CO₂ Index)", labels, data.map(d => d.air_quality), 0, 100);
+      makeChart("soundChart", "Sound Level (dB)", labels, data.map(d => d.sound), 0, 1000);
+      makeChart("humChart", "Humidity (%)", labels, data.map(d => d.humidity), 0, 100);
+    }
+
+    function makeChart(id, label, labels, data, min, max) {
+      const canvas = document.getElementById(id);
+      const old = Chart.getChart(canvas);
+      if (old) old.destroy();
+
+      new Chart(canvas, {
+        type: 'line',
+        data: {
+          labels,
+          datasets: [{
+            label,
+            data,
+            tension: 0.45,
+            borderWidth: 3,
+            pointRadius: 0,
+            fill: true,
+            backgroundColor: 'rgba(37,99,235,0.15)',
+            borderColor: '#2563eb'
+          }]
+        },
+        options: {
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: { mode: 'index', intersect: false }
+          },
+          scales: {
+            x: { grid: { display: false } },
+            y: { min, max, grid: { color: '#e5e7eb' }, title: { display: true, text: label } }
+          }
+        }
+      });
+    }
+  </script>
+
+</body>
+
+</html>
